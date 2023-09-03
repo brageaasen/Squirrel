@@ -19,7 +19,6 @@ Either:
 # Credits
 - Game Design and Development: [Lovfall]
 - Artwork and Visuals: [Lovfall]
-- Music and Sound Effects: [Lovfall]
 
 # Contact
 If you have any questions, feedback, or just want to connect, you can reach me at [brageaasen@hotmail.com].
