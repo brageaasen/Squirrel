@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - ForegroundStealth
+  - Walkable
+  - Nut
+  - Enemy
+  - GrassBG
+  - TreeBG
+  - MountainBG
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Player
+  - Enemy
+  - Ground
+  - Obstacle
+  - ForegroundStealth
+  - TreeStump
+  - Post Proccesing
+  - IdleNPC
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background6
+    uniqueID: 2550215091
+    locked: 0
+  - name: Background5
+    uniqueID: 2479108027
+    locked: 0
+  - name: Background4
+    uniqueID: 2022247067
+    locked: 0
+  - name: Background3
+    uniqueID: 1562448793
+    locked: 0
+  - name: Background2
+    uniqueID: 2882212187
+    locked: 0
+  - name: Background
+    uniqueID: 2000816451
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Enviorment
+    uniqueID: 2303503103
+    locked: 0
+  - name: ForegroundStealth
+    uniqueID: 2411960263
+    locked: 0
+  - name: Water
+    uniqueID: 1842691173
+    locked: 0
+  - name: Player
+    uniqueID: 1295094407
+    locked: 0
+  - name: Enemies
+    uniqueID: 3073305349
+    locked: 0
+  - name: Foreground
+    uniqueID: 258489987
+    locked: 0
+  - name: UI
+    uniqueID: 2475506915
+    locked: 0
