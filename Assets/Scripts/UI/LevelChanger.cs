@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelChanger : MonoBehaviour
 {
-    
-    public Animator animator;
+    // References
+    [SerializeField] private Animator animator;
 
     private int levelToLoad;
 

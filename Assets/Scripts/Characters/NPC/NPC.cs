@@ -6,22 +6,21 @@ using TMPro;
 
 public class NPC : MonoBehaviour
 {
-    [SerializeField] private Enemy enemy;
-    public GameObject dialoguePanel;
-    public TextMeshProUGUI dialogueText;
-    [SerializeField] private int grantedAbility;
-    public string[] dialogue;
-    public string[] dialogue2;
-    private int index = 0;
-
-    private grantPlayerAbility grantPlayerAbility;
-    private GameObject player;
-
-    public float wordSpeed;
-    public bool playerIsClose;
-
+    // References
     private AudioManager audioManager;
+    private GameObject player;
+    private grantPlayerAbility grantPlayerAbility;
+    [SerializeField] private Enemy enemy;
+    [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private int grantedAbility;
 
+    // Fields
+    [SerializeField] private string[] dialogue;
+    [SerializeField] private string[] dialogue2;
+    [SerializeField] private float wordSpeed;
+    [SerializeField] private bool playerIsClose;
+    private int index = 0;
 
     void Start()
     {
@@ -38,14 +37,10 @@ public class NPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (player.transform.position.x < this.transform.position.x)
-        {
-            this.transform.localScale = new Vector2(-1f, 1f);
-        } else
-        {
-            this.transform.localScale = new Vector2(1f, 1f);
-        }
+        if (player.transform.position.x < transform.position.x)
+            transform.localScale = new Vector2(-1f, 1f);
+        else
+            transform.localScale = new Vector2(1f, 1f);
 
         if (Input.GetButtonDown("Interact") && playerIsClose)
         {
@@ -64,18 +59,13 @@ public class NPC : MonoBehaviour
 
         // Speed up dialogue
         if (Input.GetButtonDown("Interact"))
-        {
             wordSpeed /= 4;
-        } else if (Input.GetButtonUp("Interact"))
-        {
+        else if (Input.GetButtonUp("Interact"))
             wordSpeed *= 4;
-        }
 
         // Quit dialogue
         if (Input.GetKeyDown(KeyCode.Q) && dialoguePanel.activeInHierarchy)
-        {
             RemoveText();
-        }
 
         // Check dialogue1 condition, and change dialogue
         if (enemy.isDead)
@@ -127,15 +117,13 @@ public class NPC : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other) // Entering zone for interaction
     {
         if (other.CompareTag("Player"))
-        {
             playerIsClose = true;
-        }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D other) // Leaving zone for interaction
     {
         if (other.CompareTag("Player"))
         {

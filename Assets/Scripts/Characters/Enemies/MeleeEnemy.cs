@@ -49,9 +49,7 @@ public class MeleeEnemy : MonoBehaviour
             0, Vector2.left, 0, playerLayer);
 
         if (hit.collider != null)
-        {
             player = hit.transform.GetComponent<Player>();
-        }
 
         return hit.collider != null;
     }
@@ -67,8 +65,6 @@ public class MeleeEnemy : MonoBehaviour
     {
         // Damage player if in sight
         if (PlayerInSight())
-        {
             player.TakeDamage(damage);
-        }
     }
 }

@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class FoxBehaviour : MonoBehaviour
 {
+    // References
+    private Animator animator;
+    private EnemyAI enemyAI;
+    private Enemy enemy;
+    private MeleeEnemy meleeEnemy;
+    private AudioSource audioSource;
+    private Player player;
 
-    Animator animator;
-    EnemyAI enemyAI;
-    Enemy enemy;
-    MeleeEnemy meleeEnemy;
-    Rigidbody2D rb;
-    AudioSource audioSource;
-    Player player;
-
+    // Fields
     public bool sleepOnAwake;
-
-
-
     public bool isSleeping = false;
 
     // Start is called before the first frame update
@@ -26,14 +23,11 @@ public class FoxBehaviour : MonoBehaviour
         enemyAI = GetComponentInParent<EnemyAI>();
         enemy = GetComponentInParent<Enemy>();
         meleeEnemy = GetComponentInParent<MeleeEnemy>();
-        rb = GetComponentInParent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         player = GameObject.Find("Player").GetComponent<Player>();
 
         if (sleepOnAwake)
-        {
             Sleep();
-        }
     }
 
     void Update()
@@ -41,17 +35,12 @@ public class FoxBehaviour : MonoBehaviour
         if (sleepOnAwake)
         {
             if (enemy.maxHealth != enemy.currentHealth && isSleeping)
-            {
                 WakeUp();
-            } else if (GetComponentInParent<BoxCollider2D>().IsTouchingLayers(LayerMask.GetMask("Player")))
-            {
+            else if (GetComponentInParent<BoxCollider2D>().IsTouchingLayers(LayerMask.GetMask("Player")))
                 WakeUp();
-            }
         }
-        if (enemy.isDead || player.isDead)
-        {
+        if (enemy.isDead || player.isDead) // Disable audio on death (Fox/Player)
             audioSource.Stop();
-        }
     }
 
     void Sleep()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WakeUpTrigger : MonoBehaviour
 {
-    [SerializeField] GameObject enemy;
+    [SerializeField] private GameObject enemy;
     private FoxBehaviour behaviour;
 
     void Start()
@@ -16,11 +16,8 @@ public class WakeUpTrigger : MonoBehaviour
     {
         if (collider2D.tag == "Player")
         {
-            if (enemy != null)
-            {
-                if (behaviour.isSleeping)
-                    behaviour.WakeUp();
-            }
+            if (enemy != null && behaviour.isSleeping)
+                behaviour.WakeUp();
         }
     }
 }

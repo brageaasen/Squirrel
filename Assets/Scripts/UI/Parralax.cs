@@ -27,13 +27,9 @@ public class Parralax : MonoBehaviour
 
             transform.position = new Vector3(startpos + distance, transform.position.y, transform.position.z);
             if (temp + distanceWhenCreate > startpos + length)
-            {
                 startpos += length;
-            }
             else if (temp - distanceWhenCreate < startpos - length)
-            {
                 startpos -= length;
-            }
         }
     }
 }

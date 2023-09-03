@@ -5,12 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    // References
+    [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject gameOverMenuUI;
 
     public static bool GameIsPaused = false;
-
-    public GameObject pauseMenuUI;
-
-    [SerializeField] private GameObject gameOverMenuUI;
 
     // Update is called once per frame
     void Update()
@@ -18,13 +17,9 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && (gameOverMenuUI.activeSelf == false))
         {
             if (GameIsPaused) 
-            {
                 Resume();
-            }
             else 
-            {
                 Pause();
-            }
         }
     }
 
@@ -45,7 +40,6 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         Time.timeScale = 1f;
-        //SceneManager.LoadScene("Menu");
     }
 
     public void QuitGame()

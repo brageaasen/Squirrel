@@ -3,8 +3,11 @@ using UnityEngine.UI;
 
 public class TextTimer : MonoBehaviour
 {
-    public Text text;  //Add reference to UI Text here via the inspector
-    public float timeToAppear = 4f;
+    // References
+    [SerializeField] private Text text;
+
+    // Fields
+    public float timeToAppear = 2f;
     private float timeWhenDisappear;
     
     //Call to enable the text, which also sets the timer

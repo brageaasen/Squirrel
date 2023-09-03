@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class grantPlayerAbility : MonoBehaviour
 {
-    [SerializeField] GameObject grantAbilityUI;
-    [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] private GameObject grantAbilityUI;
+    [SerializeField] private PlayerMovement playerMovement;
     private GameObject climbUI;
     private GameObject crouchUI;
+
     // Start is called before the first frame update
     void Start()
     {

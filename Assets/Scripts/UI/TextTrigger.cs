@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class TextTrigger : MonoBehaviour
 {
-    [SerializeField] GameObject textTutorial;
+    [SerializeField] private GameObject textTutorial;
 
     void OnTriggerEnter2D(Collider2D collider2D)
     {
         if (collider2D.tag == "Player")
         {
             if (textTutorial != null)
-            {
                 textTutorial.GetComponent<TextTimer>().EnableText();
-            }
         }
     }
 }

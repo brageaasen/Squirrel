@@ -5,22 +5,17 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-
+    // Fields
     [SerializeField] private CanvasGroup healthBarUIGroup;
+    [SerializeField] private Slider slider;
+    [SerializeField] private Gradient gradient;
+    [SerializeField] private Image fill;
 
-    public Slider slider;
-    public Gradient gradient;
-    public Image fill;
-
-
-    
     void Update() {
-        if (slider.value == slider.maxValue || slider.value == slider.minValue) {
+        if (slider.value == slider.maxValue || slider.value == slider.minValue)
             healthBarUIGroup.alpha = 0;
-        }
-        else { 
+        else
             healthBarUIGroup.alpha = 1;
-        }
     }
 
     public void SetMaxHealth(int health)

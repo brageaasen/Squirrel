@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayIdleAtRandom : MonoBehaviour
 {
-
+    // References
     private Animator animator;
 
     private float timePassed = 0f;
@@ -20,9 +20,7 @@ public class PlayIdleAtRandom : MonoBehaviour
         if(timePassed > 15f)
         {
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-            {
                 animator.SetTrigger("IdleTrigger");
-            }
             timePassed = 0f;
         } 
     }

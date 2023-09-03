@@ -5,14 +5,14 @@ using Pathfinding;
 
 public class Enemy : MonoBehaviour
 {
+    // References
+    [SerializeField] private Animator animator;
+    [SerializeField] private HealthBar healthBar;
+    private Rigidbody2D rb;
 
-    public Animator animator;
-    Rigidbody2D rb;
-
-    public HealthBar healthBar;
+    // Fields
     public int maxHealth = 100;
     public int currentHealth;
-
     public bool isDead = false;
 
     // Start is called before the first frame update
@@ -28,16 +28,11 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-
-            if ((rb.velocity.x > 0 || rb.velocity.x < 0) || (rb.velocity.y > 0 || rb.velocity.y < 0) && !animator.GetBool("IsSleeping"))
-            {
-                animator.SetBool("IsMoving", true);
-            }
-            else
-            {
-                animator.SetBool("IsMoving", false);
-            }
-
+        // Animator fields
+        if ((rb.velocity.x > 0 || rb.velocity.x < 0) || (rb.velocity.y > 0 || rb.velocity.y < 0) && !animator.GetBool("IsSleeping"))
+            animator.SetBool("IsMoving", true);
+        else
+            animator.SetBool("IsMoving", false);
     }
 
     public void TakeDamage(int damage)
@@ -49,9 +44,7 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("Hurt");
 
         if (currentHealth <= 0)
-        {
             Die();
-        }
     }
 
     void Die()

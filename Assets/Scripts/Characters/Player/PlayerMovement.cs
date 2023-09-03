@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
+
+    // References
+    private CharacterController2D controller;
     private Player player;
     private Rigidbody2D rb;
-    private CharacterController2D controller;
-    public Animator animator;
-
-    LayerMask obstacleLayer, groundLayer;
-
+    private NutCollecter nuts;
+    private AudioManager audioManager;
+    private LayerMask obstacleLayer, groundLayer;
 
     [Header("Player movement")]
     public float runSpeed = 40f;
@@ -19,11 +21,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Fall Damage")]
     public int fallDamageMultiplier = 100;
     public float fallThresholdVelocity = 5f;
-
-    float horizontalMove = 0f;
-    bool jump = false;
-    bool climb = false;
-    [HideInInspector] public bool eating = false;
     
     [Header("Bools")]
     public bool crouch;
@@ -31,10 +28,10 @@ public class PlayerMovement : MonoBehaviour
     public bool canClimb;
     public bool canCrouch;
 
-    private NutCollecter nuts;
-    private AudioManager audioManager;
-
-    private float timePassed = 0f;
+    float horizontalMove = 0f;
+    bool jump = false;
+    bool climb = false;
+    [HideInInspector] public bool eating = false;
 
     private void Start()
 	{
@@ -50,18 +47,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // Animator fields
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
         animator.SetBool("Grounded", controller.m_Grounded);
 
         if (player.isSleeping && Input.anyKey)
-        {
-            player.Invoke("WakePlayer", 3);
-        }
-
-
-
+            player.Invoke("WakePlayer", 3); // Wake player after 3 seconds
 
         // Jump
         if (Input.GetButtonDown("Jump") && !player.isSleeping && controller.m_Grounded) {
@@ -94,29 +86,28 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Eat") && !player.isSleeping)
         {
             if (nuts.nutCount <= 0)
-            return;
+                return;
             audioManager.Play("Eating");
             eating = true;
             animator.SetBool("IsEating", true);
         }
     }
 
-    private bool IsClimbable()
+    private bool IsClimbable() // Check if surface is climbable
     {
         return (GetComponent<BoxCollider2D>().IsTouchingLayers(obstacleLayer));
     }
 
-
-    public void OnCrouching(bool IsCrouching)
+    public void OnCrouching(bool IsCrouching) // Set animator field
     {
         animator.SetBool("IsCrouching", IsCrouching);
     }
 
-    public void OnClimbing(bool IsClimbing)
+    public void OnClimbing(bool IsClimbing) // Set animator field
     {
         animator.SetBool("IsClimbing", IsClimbing);
     }
-    public void OnLanding() {
+    public void OnLanding() { // Set animator field, take damage
         TakeFallDamage();
         animator.SetBool("IsFalling", false);
     }
@@ -127,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
         {
             // Change sortinglayer to default
             player.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Default");
+
             // Layer 7 = enemy layer
             gameObject.layer = 7;
         }
@@ -136,14 +128,16 @@ public class PlayerMovement : MonoBehaviour
     {
         // Change sortinglayer to player
         player.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Player");
+
         // Layer 6 = player layer
         gameObject.layer = 6;
     }
 
 
 
-    void FixedUpdate() {
-        // Move our character
+    void FixedUpdate()
+    {
+        // Move the player
         if (!player.isSleeping)
         {
             controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump, eating);
@@ -161,9 +155,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsFalling", true);
         }
         else
-        {
             animator.SetBool("IsFalling", false);
-        }
 
         if (climb)
         {
@@ -181,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void TakeFallDamage()
+    public void TakeFallDamage() // Calculate falldamage
     {
         if (rb.velocity.y < -fallThresholdVelocity)
         {

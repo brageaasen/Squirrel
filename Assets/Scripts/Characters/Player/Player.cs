@@ -4,44 +4,44 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Animator animator;
-    public HealthBar healthBar;
-
-    public int maxHealth = 100;
-    public int currentHealth;
-    public int nutHealing = 40;
-    public bool isDead = false;
-
-    public bool isUnderwater = false;
-
-    public static Vector2 lastCheckpointPos = new Vector2(-24.87f, -8.65f);
-
-    private NutCollecter nuts;
+    // References
+    [SerializeField] private Animator animator;
+    [SerializeField] private HealthBar healthBar;
     private PlayerMovement playerMovement;
     private PlayerCombat playerCombat;
+    private NutCollecter nuts;
 
-    private Vector3 startPos = new Vector3(-24.87f, -8.65f, 0f);
-
+    // Fields
+    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int nutHealing = 40;
     [HideInInspector] public bool isSleeping = false;
+    public bool isDead = false;
+    public int currentHealth;
+    public bool isUnderwater = false;
+    public static Vector2 lastCheckpointPos = new Vector2(-24.87f, -8.65f);
+    private Vector3 startPos = new Vector3(-24.87f, -8.65f, 0f);
 
     void Awake()
     {
         GameObject.FindGameObjectWithTag("Player").transform.position = lastCheckpointPos;
+        nuts = GetComponent<NutCollecter>();
+        playerMovement = GetComponent<PlayerMovement>();
+        playerCombat = GetComponent<PlayerCombat>();
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        if (this.transform.position == startPos)
+        if (transform.position == startPos)
         {
             isSleeping = true;
             animator.SetBool("IsSleeping", isSleeping);
         }
+
+        // Change start-HP
         currentHealth = maxHealth - 40;
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(currentHealth);
-        nuts = GetComponent<NutCollecter>();
-        playerMovement = GetComponent<PlayerMovement>();
-        playerCombat = GetComponent<PlayerCombat>();
     }
 
     public void TakeDamage(int damage)
@@ -53,16 +53,13 @@ public class Player : MonoBehaviour
         animator.SetTrigger("Hurt");
 
         if (currentHealth <= 0)
-        {
             Die();
-        }
     }
 
     void Die()
     {
-        Debug.Log("You died!");
-
         isDead = true;
+
         // Die animation
         animator.SetBool("IsDead", true);
 
@@ -75,10 +72,10 @@ public class Player : MonoBehaviour
         playerMovement.eating = false;
         nuts.DecrementNuts();
         currentHealth += nutHealing;
+
         if (currentHealth > maxHealth)
-        {
             currentHealth -= (currentHealth - maxHealth);
-        }
+
         healthBar.SetHealth(currentHealth);
         animator.SetBool("IsEating", false);
     }
