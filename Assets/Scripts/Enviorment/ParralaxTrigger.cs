@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ParralaxTrigger : MonoBehaviour
 {
+    // References
+    private AudioManager audioManager;
+
+    // Fields
     [SerializeField] private BoxCollider2D col;
     private GameObject[] grassBackground;
     private GameObject[] treeBackground;
     private GameObject[] mountainBackground;
-    private AudioManager audioManager;
 
     // Start is called before the first frame update
     void Start()
@@ -50,25 +53,19 @@ public class ParralaxTrigger : MonoBehaviour
     void StopGrassParralax()
     {
         foreach (GameObject background in grassBackground)
-        {
             background.GetComponent<Parralax>().continueParralax = false;
-        }
     }
 
     void StopTreeParralax()
     {
         foreach (GameObject background in treeBackground)
-        {
             background.GetComponent<Parralax>().continueParralax = false;
-        }
     }
 
     void StopMountainParralax()
     {
         foreach (GameObject background in mountainBackground)
-        {
             background.GetComponent<Parralax>().continueParralax = false;
-        }
     }
 
     void changeMountainParralax()

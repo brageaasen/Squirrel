@@ -3,25 +3,25 @@ using UnityEngine;
 
 public class OcclusionDetectorInsta : MonoBehaviour
 {
-    public ParticleSystem bushPS;
+    // References
     private AudioManager audioManager;
-    GameObject player;
-    PlayerMovement playerMovement;
-    GameObject owl;
-    AIPath owlAI;
+    private GameObject player;
+    private PlayerMovement playerMovement;
+    private GameObject owl;
+    private AIPath owlAI;
+
+    // Fields
+    public ParticleSystem bushPS;
+
     void Awake()
     {
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         player = GameObject.FindWithTag("Player");
         owl = GameObject.Find("Owl");
         if (player != null)
-        {
             playerMovement = player.GetComponent<PlayerMovement>();
-        }
         if (owl != null)
-        {
             owlAI = owl.GetComponent<AIPath>();
-        }
     }
 
     void OnTriggerEnter2D(Collider2D collider2D)
@@ -32,11 +32,12 @@ public class OcclusionDetectorInsta : MonoBehaviour
             playerMovement.behindForeGround = true;
             CreateBushPS();
 
+            // Disable enemy AI agents
             if (owlAI != null)
-            {
                 owlAI.enabled = false;
-            }
             owl.GetComponentInChildren<MeleeEnemy>().enabled = false;
+
+            // Stealth player
             playerMovement.Stealth();
             MakeSpritesTransparent();
         }
@@ -46,12 +47,12 @@ public class OcclusionDetectorInsta : MonoBehaviour
     {
         if (collider2D.tag == "Player")
         {
-
+            // Disable enemy AI agents
             if (owlAI != null)
-            {
                 owlAI.enabled = false;
-            }
             owl.GetComponentInChildren<MeleeEnemy>().enabled = false;
+
+            // Stealth player
             playerMovement.Stealth();
             MakeSpritesTransparent();
         }
@@ -65,11 +66,12 @@ public class OcclusionDetectorInsta : MonoBehaviour
             playerMovement.behindForeGround = false;
             CreateBushPS();
 
+            // Enable enemy AI agents
             if (owlAI != null)
-            {
                 owlAI.enabled = true;
-            }
             owl.GetComponentInChildren<MeleeEnemy>().enabled = true;
+
+            // Unstealth player
             playerMovement.UnStealth();
             MakeSpritesSolid();
         }
@@ -80,13 +82,9 @@ public class OcclusionDetectorInsta : MonoBehaviour
         SpriteRenderer spriteRendererObject = gameObject.GetComponent<SpriteRenderer>();
         SpriteRenderer spriteRendererPlayer = player.GetComponent<SpriteRenderer>();
         if (spriteRendererObject != null)
-        {
             spriteRendererObject.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-        }
         if (spriteRendererPlayer != null)
-        {
             spriteRendererPlayer.color = new Color(1.0f, 1.0f, 1.0f, 0.75f);
-        }
     }
 
     void MakeSpritesSolid()
@@ -94,13 +92,9 @@ public class OcclusionDetectorInsta : MonoBehaviour
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         SpriteRenderer spriteRendererPlayer = player.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
-        {
             spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        }
         if (spriteRendererPlayer != null)
-        {
             spriteRendererPlayer.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        }
     }
 
     void CreateBushPS()

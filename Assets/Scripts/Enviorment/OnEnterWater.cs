@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class OnEnterWater : MonoBehaviour
 {
+    // References
+    private AudioManager audioManager;
+    private GameObject player;
+    private GameObject enemy;
+    private PlayerMovement playerMovement;
+    private SpriteRenderer sprite;
+
+    // Fields
     public ParticleSystem waterPS;
     public ParticleSystem enemyWaterPS;
-    private AudioManager audioManager;
-
     public float drownFrequency = 1f;
-
     private float time = 0.0f;
-
-    GameObject player;
-    GameObject enemy;
-    PlayerMovement playerMovement;
-    
-    private SpriteRenderer sprite;
 
     void Awake()
     {
@@ -26,9 +25,7 @@ public class OnEnterWater : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
     
         if (player != null)
-        {
             playerMovement = player.GetComponent<PlayerMovement>();
-        }
     }
 
     void Update()
@@ -79,6 +76,7 @@ public class OnEnterWater : MonoBehaviour
             audioManager.StopPlaying("Underwater");
             waterPS.Play();
         }
+
         if (collider2D.tag == "Enemy")
         {
             enemy.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Enemies";
